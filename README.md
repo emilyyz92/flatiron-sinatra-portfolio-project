@@ -1,6 +1,6 @@
 # flatiron-sinatra-portfolio-project
 Flatiron Sinatra Web App Project
-My Equipment Shack
+Joe's Gear Shack
  - user accounts
  - orders
  - products (prices, quantities, orders, account_product)
@@ -13,3 +13,4 @@ My Equipment Shack
 
  User can edit orders after logging in
  Users can see products and available quantities
+ Order number is multi-digit integer randomly generated
