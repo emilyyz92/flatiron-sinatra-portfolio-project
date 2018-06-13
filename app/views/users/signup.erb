@@ -1,3 +1,6 @@
+<% if flash[:error] %>
+  <%= flash[:error] %>
+<% end %>
 <h1>Welcome! </h1>
 <h2>Sign up to make a purchase order: </h2>
 <form action="/users/signup" method="post">
