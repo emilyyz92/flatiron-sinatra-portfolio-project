@@ -8,8 +8,8 @@ class UsersController < ApplicationController
   end
 
   post '/users/signup' do
-    if params[:user].any?{|a|a == "" || a == [] || a == nil}
-      flash[:message] = "Invalid user registration, please try again."
+    if params[:user].values.any?{|a|a == "" || a == [] || a == nil}
+      flash[:error] = "Invalid user registration, please try again."
       redirect "/users/signup"
     else
       @user = User.create(params[:user])
