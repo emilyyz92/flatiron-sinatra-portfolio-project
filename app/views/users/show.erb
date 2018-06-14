@@ -1,7 +1,6 @@
-<h1>Welcome Back <%=@user.name%>!</h1>
-<h2><a href="/orders/new">Create a new order</a></h2>
+<h3><a href="/orders/new">Create a new order</a></h3>
 <br></br>
-<h2>My current orders: </h2>
+<h3>My current orders: </h3>
 <ul>
   <%@user.orders.each do |order|%>
   <li><p>Order #<%=order.id%></p></li>

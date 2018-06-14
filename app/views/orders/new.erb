@@ -1,0 +1,9 @@
+<form method="post" action="/orders">
+  <label>Choose a product: </label>
+  <%Category.all.each do |c|%>
+  <input type="checkbox" name="product[category_id][]" value="<%=category.id%>"><%=category.name%></input>
+  <label>Quantity: </label>
+  <input type="text">
+  <br></br>
+  <%end%>
+</form>

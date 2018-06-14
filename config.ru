@@ -8,4 +8,5 @@ if defined?(ActiveRecord::Migrator) && ActiveRecord::Migrator.needs_migration?
 end
 
 use UsersController
+use OrdersController
 run ApplicationController

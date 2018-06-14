@@ -23,18 +23,23 @@ class UsersController < ApplicationController
   end
 
   post '/users/login' do
-    if params[:user].values.any?{|a|a == "" || a == nil}
-      flash[:error] = "Invalid user input, please try again."
-      redirect "/users/login"
-    else
-      user = User.find_by(username: params[:user][:username])
-      if user && user.authenticate(params[:user][:password])
-        session[:user_id] = user.id
-        redirect "users/#{user.id}"
-      else
+    if !session[:user_id]
+      if params[:user].values.any?{|a|a == "" || a == nil}
         flash[:error] = "Invalid user input, please try again."
         redirect "/users/login"
+      else
+        user = User.find_by(username: params[:user][:username])
+        if user && user.authenticate(params[:user][:password])
+          session[:user_id] = user.id
+          redirect "users/#{user.id}"
+        else
+          flash[:error] = "Invalid user input, please try again."
+          redirect "/users/login"
+        end
       end
+    else
+      user = User.find_by(id: session[:user_id])
+      redirect "/users/#{user.id}"
     end
   end
 
@@ -44,6 +49,7 @@ class UsersController < ApplicationController
   end
 
   get '/users/logout' do
+    binding.pry
     if User.find_by(id: session[:user_id])
       session.clear
       flash[:message] = "Successfully Logged Out"
