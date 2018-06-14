@@ -43,5 +43,13 @@ class UsersController < ApplicationController
     erb :'/users/show'
   end
 
+  get '/users/logout' do
+    if User.find_by(id: session[:user_id])
+      session.clear
+      flash[:message] = "Successfully Logged Out"
+    end
+    redirect "/"
+  end
+
 
 end
