@@ -4,6 +4,9 @@ class OrdersController < ApplicationController
   end
 
   post '/orders' do
-
+    binding.pry
+    if logged_in?
+      @order = Order.create(user_id: current_user.id)
+    end
   end
 end
