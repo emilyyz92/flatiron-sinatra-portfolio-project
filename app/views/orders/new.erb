@@ -1,7 +1,9 @@
 <form method="post" action="/orders">
   <label>Choose a product: </label>
   <%Category.all.each do |c|%>
-  <input type="checkbox" name="product[category_id][]" value="<%=category.id%>"><%=category.name%></input>
+  <br></br>
+  <input type="checkbox" name="order[category_id][]" value="<%=c.id%>"><%=c.name%></input>
+  <br></br>
   <label>Quantity: (Max - <%=c.count%>)</label>
   <input type="text" name="order[count]">
   <br></br>
