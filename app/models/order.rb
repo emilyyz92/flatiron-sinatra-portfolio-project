@@ -18,4 +18,8 @@ class Order < ActiveRecord::Base
       self.save
   end
 
+  def product_item
+    items.uniq{|i|i.product}
+  end
+
 end
