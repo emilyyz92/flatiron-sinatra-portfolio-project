@@ -2,7 +2,7 @@
   <label>Choose a product: </label>
   <%Category.all.each do |c|%>
   <br></br>
-  <input type="checkbox" name="order[category_id][]" value="<%=c.id%>"><%=c.name%></input>
+  <input type="checkbox" name="order[product_id][]" value="<%=c.id%>"><%=c.name%></input>
   <br></br>
   <label>Quantity: (Max - <%=c.count%>)</label>
   <input type="text" name="order[count][]">

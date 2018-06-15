@@ -1,4 +1,4 @@
 class Product < ActiveRecord::Base
-  belongs_to :category
-  belongs_to :order
+  has_many :items
+  has_many :orders, through: :items
 end

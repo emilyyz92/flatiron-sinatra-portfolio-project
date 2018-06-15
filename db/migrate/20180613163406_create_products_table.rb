@@ -1,8 +1,9 @@
 class CreateProductsTable < ActiveRecord::Migration
   def change
     create_table :products do |t|
-      t.integer :category_id
-      t.integer :order_id
+      t.string :name
+      t.float :price
+      t.integer :count
     end
   end
 end
