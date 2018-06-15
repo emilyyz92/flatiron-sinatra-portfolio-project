@@ -1,6 +1,6 @@
 <form method="post" action="/orders">
   <label>Choose a product: </label>
-  <%Category.all.each do |c|%>
+  <%Product.all.each do |c|%>
   <br></br>
   <input type="checkbox" name="order[product_id][]" value="<%=c.id%>"><%=c.name%></input>
   <br></br>
