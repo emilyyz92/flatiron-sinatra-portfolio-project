@@ -1,0 +1,6 @@
+<h3>Order #<%=@order.id%> Details: </h3>
+<ul>
+<%@order.items.uniq.each do |item|%>
+<li><%=item.product%> Item #: <%=item.id%>; Price: <%=item.price%>; </li>
+<%end%>
+</ul>

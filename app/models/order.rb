@@ -2,13 +2,15 @@ class Order < ActiveRecord::Base
   belongs_to :user
   has_many :items
   has_many :products, through: :items
+  validates_presence_of :items, :user
 
   def create_items(array) #creating items when order created
+    item_array = []
     array.each do |a|
       t = a[1].to_i
-      item_array = []
       t.times do
-        item = Item.create(product_id: a[0])
+        product = Product.find_by(id: a[0])
+        item = Item.create(product_id: product.id, price: product.price)
         item_array << item
       end
     end
@@ -16,7 +18,4 @@ class Order < ActiveRecord::Base
       self.save
   end
 
-  def price
-
-  end
 end

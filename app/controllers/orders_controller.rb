@@ -4,11 +4,18 @@ class OrdersController < ApplicationController
   end
 
   post '/orders' do
-    binding.pry
     if logged_in?
       @order = Order.create(user_id: current_user.id)
       array = params[:order][:product_id].zip(params[:order][:count])
       @order.create_items(array)
+      @order.save
+      redirect "/orders/#{@order.id}"
     end
+  end
+
+  get '/orders/:id' do
+    @order = Order.find_by(id: params[:id])
+    @products = @order.products
+    erb :'/orders/show'
   end
 end

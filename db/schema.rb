@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 20180613163406) do
   create_table "items", force: :cascade do |t|
     t.integer "product_id"
     t.integer "order_id"
+    t.float   "price"
   end
 
   create_table "orders", force: :cascade do |t|

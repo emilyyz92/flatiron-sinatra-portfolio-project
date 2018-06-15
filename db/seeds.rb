@@ -1,5 +1,5 @@
-User.create(username: "buyer1", password: "abc", name: "Jack", email: "jack@gmail.com")
-User.create(username: "panda", password: "kungfu", name: "Jackie", email: "jackie@gmail.com")
+User.create(username: "rapunzel", password: "hair", name: "Rapunzel", email: "rapunzel@gmail.com")
+User.create(username: "panda", password: "kungfu", name: "Shifu", email: "panda@gmail.com")
 Order.create(user_id: 1)
 Product.create(name: "Gloves", price: 5.99, count: 100)
 Product.create(name: "Hats", price: 8.99, count: 60)
