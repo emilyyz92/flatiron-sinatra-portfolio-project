@@ -1,10 +1,13 @@
 class OrdersController < ApplicationController
+  register Sinatra::ActiveRecordExtension
+  register Sinatra::Flash
+
   get '/orders/new' do
     erb :'/orders/new'
   end
 
   post '/orders' do
-    if logged_in?
+    if session[:user_id] == current_user.id && logged_in?
       @order = Order.create(user_id: current_user.id)
       array = params[:order][:product_id].zip(params[:order][:count])
       @order.create_items(array)
@@ -16,7 +19,7 @@ class OrdersController < ApplicationController
   get '/orders/:id' do
     @order = Order.find_by(id: params[:id])
     @products = @order.products
-    if session[:user_id] == current_user.id
+    if session[:user_id] == current_user.id && logged_in?
       erb :'/orders/show'
     else
       flash[:message] = "You don't have access to this order"
@@ -25,8 +28,13 @@ class OrdersController < ApplicationController
   end
 
   get '/orders/:id/edit' do
-    @order = Order.find_by(id: params[:id])
-    erb :'/orders/edit'
+    if session[:user_id] == current_user.id && logged_in?
+      @order = Order.find_by(id: params[:id])
+      erb :'/orders/edit'
+    else
+      flash[:message] = "You don't have access to this order"
+      redirect "/"
+    end
   end
 
   post '/orders/:id' do
@@ -41,7 +49,7 @@ class OrdersController < ApplicationController
   end
 
   get '/orders/:id/delete' do
-    if session[:user_id] == current_user.id
+    if session[:user_id] == current_user.id && logged_in?
       @order = Order.find_by(id: params[:id])
       Item.delete(@order.items)
       Order.delete(@order)
