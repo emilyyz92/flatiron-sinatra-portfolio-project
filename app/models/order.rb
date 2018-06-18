@@ -15,6 +15,7 @@ class Order < ActiveRecord::Base
       end
     end
       self.items = item_array
+      self.products = self.products.uniq {|pr|pr.id}
       self.save
   end
 
