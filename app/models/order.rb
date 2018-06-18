@@ -27,6 +27,7 @@ class Order < ActiveRecord::Base
     items.each do |i|
       a += i.price
     end
+    a = a.round(2)
   end
 
 end
