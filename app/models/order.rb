@@ -18,8 +18,9 @@ class Order < ActiveRecord::Base
       self.save
   end
 
-  def product_item
-    items.uniq{|i|i.product_id}
+  def order_item_count(product_id)
+      array = items.select {|i| i.product_id ==  product_id}
+      array.count
   end
 
   def order_price

@@ -3,7 +3,7 @@
 <input type="checkbox" name="order[product_id][]" value="<%=c.id%>" <%='checked' if @order.products.include?(c) %>><%=c.name%></input>
 <br></br>
 <label>Quantity: (Max - <%=c.count%>)</label>
-<input type="text" name="order[count][]">
+<input type="text" name="order[count][]" value="<%=@order.order_item_count(c.id)%>">
 <br></br>
 <%end%>
 <input type="submit" value="Edit Order">

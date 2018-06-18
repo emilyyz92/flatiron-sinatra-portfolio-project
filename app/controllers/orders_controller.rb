@@ -21,6 +21,6 @@ class OrdersController < ApplicationController
 
   get '/orders/:id/edit' do
     @order = Order.find_by(id: params[:id])
-    erb :'/order/edit'
+    erb :'/orders/edit'
   end
 end

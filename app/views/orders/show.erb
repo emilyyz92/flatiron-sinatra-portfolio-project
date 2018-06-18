@@ -1,7 +1,7 @@
 <h3>Order #<%=@order.id%> Details: </h3>
 <ul>
-<%@order.items.each do |item|%>
-<li><%=item.product.name%> Item #: <%=item.id%>; Price: $<%=item.price%>; </li>
+<%@order.products.each do |pr|%>
+<li><%=pr.name%> - Quantity: <%=@order.order_item_count(pr.id)%>; Price: $<%=pr.price%> each; </li>
 <%end%>
 </ul>
 <p>Your total order price is: $<%=@order.order_price%></p>
