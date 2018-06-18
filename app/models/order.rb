@@ -19,7 +19,14 @@ class Order < ActiveRecord::Base
   end
 
   def product_item
-    items.uniq{|i|i.product}
+    items.uniq{|i|i.product_id}
+  end
+
+  def order_price
+    a = 0
+    items.each do |i|
+      a += i.price
+    end
   end
 
 end
