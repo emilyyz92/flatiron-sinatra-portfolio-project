@@ -1,0 +1,10 @@
+<form method="post" action="/orders/<%=@order.id%>">
+<% Product.all.each do |c| %>
+<input type="checkbox" name="order[product_id][]" value="<%=c.id%>" <%='checked' if @order.products.include?(c) %>><%=c.name%></input>
+<br></br>
+<label>Quantity: (Max - <%=c.count%>)</label>
+<input type="text" name="order[count][]">
+<br></br>
+<%end%>
+<input type="submit" value="Edit Order">
+</form>

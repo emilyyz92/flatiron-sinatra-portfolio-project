@@ -18,4 +18,9 @@ class OrdersController < ApplicationController
     @products = @order.products
     erb :'/orders/show'
   end
+
+  get '/orders/:id/edit' do
+    @order = Order.find_by(id: params[:id])
+    erb :'/order/edit'
+  end
 end
