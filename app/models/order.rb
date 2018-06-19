@@ -11,6 +11,8 @@ class Order < ActiveRecord::Base
       t.times do
         product = Product.find_by(id: a[0])
         item = Item.create(product_id: product.id, price: product.price)
+        product.count -= 1
+        product.save
         item_array << item
       end
     end

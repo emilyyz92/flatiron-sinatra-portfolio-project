@@ -8,11 +8,17 @@ class OrdersController < ApplicationController
 
   post '/orders' do
     if session[:user_id] == current_user.id && logged_in?
-      @order = Order.create(user_id: current_user.id)
-      array = params[:order][:product_id].zip(params[:order][:count])
-      @order.create_items(array)
-      @order.save
-      redirect "/orders/#{@order.id}"
+      if !params[:order][:count].all?{|c| c == 0}
+        @order = Order.create(user_id: current_user.id)
+        array = params[:order][:product_id].zip(params[:order][:count])
+        @order.create_items(array)
+        redirect "/orders/#{@order.id}"
+      else
+        flash[:message] = "Can't create an order with zero quantities."
+        redirect "/orders/new"
+      end
+    else
+      redirect "/"
     end
   end
 
@@ -38,13 +44,16 @@ class OrdersController < ApplicationController
   end
 
   post '/orders/:id' do
-    @order = Order.find_by(id: params[:id])
-    @order.products.clear
-    Item.delete(@order.items)
-    @order.items.clear
-    array = params[:order][:product_id].zip(params[:order][:count])
-    @order.create_items(array)
-    @order.save
+    if !params[:order][:count].all?{|c| c == 0}
+      @order = Order.find_by(id: params[:id])
+      @order.products.clear
+      Item.delete(@order.items)
+      @order.items.clear
+      array = params[:order][:product_id].zip(params[:order][:count])
+      @order.create_items(array)
+    else
+      flash[:message] = "Can't create an order with zero quantities."
+    end
     redirect "/orders/#{@order.id}"
   end
 
