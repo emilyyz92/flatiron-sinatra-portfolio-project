@@ -1,6 +1,6 @@
 <h3>Order #<%=@order.id%> Details: </h3>
 <ul>
-<%@order.products.each do |pr|%>
+<%@products.each do |pr|%>
 <li><%=pr.name%> - Quantity: <%=@order.order_item_count(pr.id)%>; Price: $<%=pr.price%> each; </li>
 <%end%>
 </ul>

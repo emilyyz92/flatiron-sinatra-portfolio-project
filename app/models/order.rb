@@ -2,21 +2,20 @@ class Order < ActiveRecord::Base
   belongs_to :user
   has_many :items
   has_many :products, through: :items
-  validates_presence_of :items, :user
+  validates_presence_of :user
 
   def create_items(array) #creating items when order created
-    item_array = []
     array.each do |a|
       t = a[1].to_i
       t.times do
         product = Product.find_by(id: a[0])
-        item = Item.create(product_id: product.id, price: product.price)
+        self.products << product
+        binding.pry
         product.count -= 1
         product.save
-        item_array << item
       end
     end
-      self.items = item_array
+      self.items.each {|i| i.update(price: i.product.price)}
       self.products = self.products.uniq {|pr|pr.id}
       self.save
   end
