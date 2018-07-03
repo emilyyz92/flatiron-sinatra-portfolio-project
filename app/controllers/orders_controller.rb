@@ -25,7 +25,7 @@ class OrdersController < ApplicationController
   get '/orders/:id' do
     @order = Order.find_by(id: params[:id])
     @products = @order.products
-    if session[:user_id] == current_user.id && logged_in?
+    if logged_in? && session[:user_id] == @order.user.id
       erb :'/orders/show'
     else
       flash[:message] = "You don't have access to this order"
@@ -34,8 +34,8 @@ class OrdersController < ApplicationController
   end
 
   get '/orders/:id/edit' do
-    if session[:user_id] == current_user.id && logged_in?
-      @order = Order.find_by(id: params[:id])
+    @order = Order.find_by(id: params[:id])
+    if logged_in? && session[:user_id] == @order.user.id
       erb :'/orders/edit'
     else
       flash[:message] = "You don't have access to this order"
@@ -58,14 +58,16 @@ class OrdersController < ApplicationController
   end
 
   get '/orders/:id/delete' do
-    if session[:user_id] == current_user.id && logged_in?
+    if logged_in?
       @order = Order.find_by(id: params[:id])
-      Item.delete(@order.items)
-      Order.delete(@order)
-      redirect "/users/#{session[:user_id]}"
-    else
-      flash[:message] = "You don't have access to this order"
-      redirect "/"
+      if session[:user_id] == @order.user.id
+        Item.delete(@order.items)
+        Order.delete(@order)
+        redirect "/users/#{session[:user_id]}"
+      else
+        flash[:message] = "You don't have access to this order"
+        redirect "/"
+      end
     end
   end
 end
